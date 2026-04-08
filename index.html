@@ -649,7 +649,7 @@ function kirimTelegram() {
 })
   .then(res => res.json())
   .then(data => {
-    if (data.ok) {
+    if (data.success) {
       alert("✅ Berhasil dikirim!");
       textarea.value = "";
       document.getElementById("dana").value = "";
