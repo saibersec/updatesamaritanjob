@@ -74,7 +74,7 @@
     /* Header */
     .header {
       text-align: center;
-      margin-bottom: 36px;
+      margin-bottom: 24px;
       animation: fade-up 0.6s ease both;
     }
 
@@ -117,12 +117,6 @@
       z-index: 1;
     }
 
-    .logo-icon {
-      font-size: 54px;
-      position: relative;
-      z-index: 1;
-    }
-
     .company-name {
       font-size: 22px;
       font-weight: 800;
@@ -130,58 +124,49 @@
       text-transform: uppercase;
       background: linear-gradient(135deg, #fff 30%, var(--accent));
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 14px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: 100px;
-      background: rgba(56,189,248,0.1);
-      border: 1px solid rgba(56,189,248,0.25);
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      color: var(--accent);
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-
-    .badge .dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
-    }
-
-    h1 {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      line-height: 1.2;
-      background: linear-gradient(135deg, #fff 40%, var(--accent));
-      -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
+      margin-bottom: 10px;
     }
 
-    h1 span { color: var(--accent); -webkit-text-fill-color: unset; }
+    /* Navigation Menu */
+    .job-nav {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 6px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+    }
 
-    .subtitle {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
+    .nav-btn {
+      background: transparent;
+      border: none;
       color: var(--muted);
-      margin-top: 6px;
-      letter-spacing: 0.5px;
+      padding: 10px 4px;
+      border-radius: 10px;
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .nav-btn.active {
+      background: rgba(56,189,248,0.15);
+      color: var(--accent);
+      border: 1px solid rgba(56,189,248,0.3);
+    }
+
+    /* Section Control */
+    .job-section {
+      display: none;
+    }
+
+    .job-section.active {
+      display: block;
     }
 
     /* Card */
@@ -193,24 +178,7 @@
       margin-bottom: 16px;
       position: relative;
       overflow: hidden;
-      animation: fade-up 0.6s ease both;
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      opacity: 0.4;
-    }
-
-    .card:nth-child(2) { animation-delay: 0.1s; }
-    .card:nth-child(3) { animation-delay: 0.2s; }
-
-    @keyframes fade-up {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      animation: fade-up 0.4s ease both;
     }
 
     .card-header {
@@ -232,20 +200,81 @@
     }
 
     .card-title {
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 700;
       color: var(--text);
-      letter-spacing: 0.3px;
     }
 
-    .card-date {
-      margin-left: auto;
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
+    /* Rate Card Special Design */
+    .rate-box {
+      background: var(--surface2);
+      border: 1px solid rgba(74, 222, 128, 0.25);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .rate-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .rate-label {
+      font-size: 11px;
       color: var(--muted);
-      padding: 3px 8px;
-      background: rgba(255,255,255,0.04);
-      border-radius: 6px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .rate-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .rate-badge {
+      background: rgba(74, 222, 128, 0.1);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      color: var(--green);
+      font-size: 10px;
+      font-family: 'Space Mono', monospace;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+
+    /* Steps List */
+    .steps-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .steps-list li {
+      display: flex;
+      gap: 12px;
+      font-size: 13px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    .step-num {
+      width: 24px; height: 24px;
+      border-radius: 8px;
+      background: rgba(56,189,248,0.1);
+      border: 1px solid rgba(56,189,248,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      flex-shrink: 0;
     }
 
     /* Rules */
@@ -277,9 +306,7 @@
     }
 
     /* Form fields */
-    .field {
-      margin-bottom: 16px;
-    }
+    .field { margin-bottom: 16px; }
 
     label {
       display: block;
@@ -291,18 +318,13 @@
       margin-bottom: 8px;
     }
 
-    .input-wrap {
-      position: relative;
-    }
+    .input-wrap { position: relative; }
 
     .input-icon {
       position: absolute;
-      left: 14px;
-      top: 50%;
+      left: 14px; top: 50%;
       transform: translateY(-50%);
-      font-size: 15px;
-      pointer-events: none;
-      opacity: 0.6;
+      font-size: 15px; opacity: 0.6;
     }
 
     input, textarea {
@@ -314,28 +336,12 @@
       font-family: 'Space Mono', monospace;
       font-size: 13px;
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s;
     }
 
-    input {
-      padding: 12px 14px 12px 42px;
-    }
-
-    textarea {
-      padding: 14px;
-      resize: none;
-      line-height: 1.7;
-    }
-
-    input:focus, textarea:focus {
-      border-color: rgba(56,189,248,0.4);
-      box-shadow: 0 0 0 3px rgba(56,189,248,0.07);
-    }
-
-    input::placeholder, textarea::placeholder {
-      color: var(--muted);
-      opacity: 0.6;
-    }
+    input { padding: 12px 14px 12px 42px; }
+    textarea { padding: 14px; resize: none; line-height: 1.7; }
+    input:focus, textarea:focus { border-color: rgba(56,189,248,0.4); }
 
     /* Stats bar */
     .stats-bar {
@@ -367,14 +373,11 @@
       font-family: 'Space Mono', monospace;
       font-size: 18px;
       font-weight: 700;
-      color: var(--text);
-      transition: all 0.3s;
     }
 
     .stat-value.green { color: var(--green); }
     .stat-value.blue { color: var(--accent); }
 
-    /* Warning */
     #warning {
       margin-top: 12px;
       padding: 10px 14px;
@@ -384,14 +387,13 @@
       color: var(--red);
       font-size: 12px;
       font-family: 'Space Mono', monospace;
-      line-height: 1.5;
       display: none;
     }
 
     #warning.show { display: block; }
 
-    /* Button */
-    .btn-send {
+    /* Buttons */
+    .btn-send, .btn-contact {
       width: 100%;
       padding: 16px;
       border: none;
@@ -401,78 +403,53 @@
       font-family: 'Syne', sans-serif;
       font-size: 14px;
       font-weight: 800;
-      letter-spacing: 0.5px;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
       transition: transform 0.15s, box-shadow 0.2s;
       box-shadow: 0 4px 20px rgba(56,189,248,0.25);
-      margin-top: 20px;
-    }
-
-    .btn-send::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .btn-send:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(56,189,248,0.4);
-    }
-
-    .btn-send:hover::before { opacity: 1; }
-    .btn-send:active { transform: translateY(0); }
-
-    .btn-send .btn-inner {
+      margin-top: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
+      text-decoration: none;
     }
 
-    /* Divider */
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 16px 0;
+    .btn-send:hover, .btn-contact:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(56,189,248,0.4);
     }
 
     .floating-contact {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 99;
-}
+      position: fixed;
+      right: 20px; bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 99;
+    }
 
-.floating-contact div {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-size: 18px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-}
+    .floating-contact div {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
 
-.floating-contact div:hover {
-  border-color: var(--accent);
-  background: rgba(56,189,248,0.1);
-}
-
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
+
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
 
 <div class="floating-contact">
   <div onclick="window.open('https://wa.me/6283138173201','_blank')">📞</div>
@@ -480,101 +457,194 @@
   <div onclick="window.open('https://chat.whatsapp.com/FiO0LVj9Oe6LCeIcEHzjwB?mode=gi_t','_blank')">👥</div>
 </div>
 
-<body>
-
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-
 <div class="container">
 
   <div class="header">
     <div class="logo-wrap">
-      <img src="https://github.com/saibersec/logo/blob/main/WhatsApp%20Image%202026-04-04%20at%2016.15.01.jpeg?raw=true">
+      <img src="https://raw.githubusercontent.com/saibersec/logo/main/WhatsApp%20Image%202026-04-04%20at%2016.15.01.jpeg">
     </div>
     <div class="company-name">SAMARITAN'S JOB</div>
-    <div class="badge"><span class="dot"></span>Sistem Setoran Aktif</div>
-    <div class="subtitle"></div>
   </div>
 
-  <!-- Rules -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-icon">📋</div>
-      <div class="card-title">Rules & Ketentuan</div>
-      <div class="card-date">24 / 08 / 2026</div>
-    </div>
-    <ul class="rules-list">
-      <li><span class="rule-num">01</span> PW WAJIB sgsg1122 </li>
-      <li><span class="rule-num">02</span> WAJIB FRESH</li>
-      <li><span class="rule-num">03</span> DILARANG AKTIFKAN 2FA/NOMOR PEMULIHAN</li>
-      <li><span class="rule-num">04</span> WAJIB NAMA MANUSIA</li>
-      <li><span class="rule-num">05</span> ANGKA MAKSIMAL 2 ANGKA </li>
-      
-      
-      
-
-    </ul>
+  <!-- Menu Navigasi Job -->
+  <div class="job-nav">
+    <button class="nav-btn active" onclick="switchJob('gmail', this)">📧 JOB GMAIL</button>
+    <button class="nav-btn" onclick="switchJob('file', this)">📁 JOB FILE</button>
+    <button class="nav-btn" onclick="switchJob('chat', this)">💬 JOB CHAT</button>
   </div>
 
-  <!-- Form -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-icon">📝</div>
-      <div class="card-title">Form Setoran</div>
+  <!-- ==================== JOB GMAIL ==================== -->
+  <div id="job-gmail" class="job-section active">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">📋</div>
+        <div class="card-title">Rules & Ketentuan</div>
+      </div>
+      <ul class="rules-list">
+        <li><span class="rule-num">01</span> PW WAJIB sgsg1122</li>
+        <li><span class="rule-num">02</span> WAJIB FRESH</li>
+        <li><span class="rule-num">03</span> DILARANG AKTIFKAN 2FA/NOMOR PEMULIHAN</li>
+        <li><span class="rule-num">04</span> WAJIB NAMA MANUSIA</li>
+        <li><span class="rule-num">05</span> ANGKA MAKSIMAL 2 ANGKA</li>
+      </ul>
     </div>
 
-    <div class="field">
-      <label>Nomor DANA</label>
-      <div class="input-wrap">
-        <span class="input-icon">💳</span>
-        <input type="tel" id="dana" placeholder="08xxxxxxxxxx">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">📝</div>
+        <div class="card-title">Form Setoran</div>
       </div>
+
+      <div class="field">
+        <label>Nomor DANA</label>
+        <div class="input-wrap">
+          <span class="input-icon">💳</span>
+          <input type="tel" id="dana" placeholder="08xxxxxxxxxx">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Nomor WhatsApp</label>
+        <div class="input-wrap">
+          <span class="input-icon">📱</span>
+          <input type="tel" id="whatsapp" placeholder="08xxxxxxxxxx">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Daftar Gmail</label>
+        <textarea id="gmailList" rows="6" placeholder="contoh@gmail.com&#10;contoh2@gmail.com"></textarea>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat-box">
+          <div class="stat-label">Jumlah Gmail</div>
+          <div class="stat-value blue" id="jumlah">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Total Bayar</div>
+          <div class="stat-value green" id="total">Rp0</div>
+        </div>
+      </div>
+
+      <div id="warning"></div>
+
+      <button class="btn-send" onclick="kirimTelegram()">Kirim Setoran</button>
     </div>
-
-    <div class="field">
-      <label>Nomor WhatsApp</label>
-      <div class="input-wrap">
-        <span class="input-icon">📱</span>
-        <input type="tel" id="whatsapp" placeholder="08xxxxxxxxxx">
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="field">
-      <label>Daftar Gmail</label>
-      <textarea id="gmailList" rows="8" placeholder="contoh@gmail.com&#10;contoh2@gmail.com&#10;contoh3@gmail.com"></textarea>
-    </div>
-
-    <div class="stats-bar">
-      <div class="stat-box">
-        <div class="stat-label">Jumlah Gmail</div>
-        <div class="stat-value blue" id="jumlah">0</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-label">Total Bayar</div>
-        <div class="stat-value green" id="total">Rp0</div>
-      </div>
-    </div>
-
-    <div id="warning"></div>
-
-    <button class="btn-send" onclick="kirimTelegram()">
-      <div class="btn-inner">
-        <span></span>
-        <span>Kirim Setoran</span>
-      </div>
-    </button>
   </div>
 
-  
+  <!-- ==================== JOB FILE ==================== -->
+  <div id="job-file" class="job-section">
+    
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">📁</div>
+        <div class="card-title">Panduan & Cara Kerja Job File</div>
+      </div>
+      <ul class="steps-list">
+        <li>
+          <span class="step-num">1</span>
+          <div> Hubungi admin dengan klik tombol "hubungi admin" di bawah. </div>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <div> Admin akan memberikan nama grup lalu kamu membuat grup sesuai nama yang telah di berikan.</div>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <div> Admin akan memberikan file yang berisi nomor-nomor yang harus di masukan ke dalam grup.</div>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <div> Kirimkan link grup ke admin sebagai bukti kamu sudah mengerjakan nya dengan baik dan benar.</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">🚀</div>
+        <div class="card-title">Tertarik Mengambil Job Ini?</div>
+      </div>
+      <p style="font-size: 13px; color: #94a3b8; line-height: 1.6; margin-bottom: 12px;">
+        Rate? sesuai paket yang di ambil, intinya paling sedikit 10.000++, akan langsung di lakukan proses payment setelah pengecekan.
+      </p>
+      <a href="https://wa.me/6283138173201?text=Halo%20Admin,%20saya%20minat%20ambil%20Job%20File" target="_blank" class="btn-contact">
+        💬 Hubungi Admin
+      </a>
+    </div>
+  </div>
+
+  <!-- ==================== JOB CHAT ==================== -->
+  <div id="job-chat" class="job-section">
+
+    <!-- Rate Harga Job Chat -->
+    <div class="rate-box">
+      <div class="rate-info">
+        <span class="rate-label">Komisi</span>
+        <span class="rate-value">Rp100 <span style="font-size: 13px; color: var(--muted); font-weight: 400;">/ Chat</span></span>
+      </div>
+      <span class="rate-badge">Langsung Pay</span>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">💬</div>
+        <div class="card-title">Panduan & Cara Kerja Job Chat</div>
+      </div>
+      <ul class="steps-list">
+        <li>
+          <span class="step-num">1</span>
+          <div> Hubungi admin dengan klik tombol "hubungi admin" di bawah.</div>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <div> Admin akan memberikan nomor serta teks yang harus di kerjakan.</div>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <div> Screenshot semua bukti chat yang telah di kerjakan lalu kirimkan kepada admin.</div>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <div> Admin akan melakukan pengecekan dan proses payment.</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">🚀</div>
+        <div class="card-title">Tertarik Mengambil Job Ini?</div>
+      </div>
+      <p style="font-size: 13px; color: #94a3b8; line-height: 1.6; margin-bottom: 12px;">
+        Gaji dibayarkan berdasarkan jumlah obrolan/kuota chat yang diselesaikan. Klik tombol di bawah untuk mendaftar.
+      </p>
+      <a href="https://wa.me/6283138173201?text=Halo%20Admin,%20saya%20minat%20ambil%20Job%20Chat" target="_blank" class="btn-contact">
+        💬 Hubungi Admin
+      </a>
+    </div>
+  </div>
 
 </div>
 
 <script>
+// Tab Switching System
+function switchJob(jobType, btnElement) {
+  const sections = document.querySelectorAll('.job-section');
+  const buttons = document.querySelectorAll('.nav-btn');
+
+  sections.forEach(sec => sec.classList.remove('active'));
+  buttons.forEach(btn => btn.classList.remove('active'));
+
+  document.getElementById(`job-${jobType}`).classList.add('active');
+  btnElement.classList.add('active');
+}
+
+// System Hitung Gmail
 const harga = 3000;
-
-
 const textarea = document.getElementById("gmailList");
 textarea.addEventListener("input", hitung);
 
@@ -638,26 +708,26 @@ function kirimTelegram() {
     `━━━━━━━━━━━━━━━━━━━\n` +
     `📋 LIST GMAIL:\n${unique.join("\n")}`;
 
- fetch("/api/send", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ pesan })
-})
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      alert("✅ Berhasil dikirim!");
-      textarea.value = "";
-      document.getElementById("dana").value = "";
-      document.getElementById("whatsapp").value = "";
-      hitung();
-    } else {
-      alert("✅ Berhasil dikirim!");
-    }
+  fetch("/api/send", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ pesan })
   })
-  .catch(() => {
-    alert("❌ Gagal kirim! Cek koneksi internet.");
-  });
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert("✅ Berhasil dikirim!");
+        textarea.value = "";
+        document.getElementById("dana").value = "";
+        document.getElementById("whatsapp").value = "";
+        hitung();
+      } else {
+        alert("✅ Berhasil dikirim!");
+      }
+    })
+    .catch(() => {
+      alert("❌ Gagal kirim! Cek koneksi internet.");
+    });
 }
 </script>
 </body>
