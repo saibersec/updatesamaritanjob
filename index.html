@@ -569,14 +569,19 @@
       </div>
 
       <!-- Contoh Bukti Screenshot -->
-      <div class="sample-box">
-  <div class="sample-title">📸 Contoh Foto Bukti Yang Benar:</div>
-  <div class="sample-img-container" style="overflow: hidden; border-radius: 8px;">
+<div class="sample-box">
+  <div class="sample-title">📸 Contoh Foto Bukti Yang Benar (Klik untuk memperbesar):</div>
+  <div class="sample-img-container" onclick="openModal()" style="cursor: pointer; position: relative;" title="Klik untuk memperbesar">
+    
+    <!-- Lapisan transparan agar iframe bisa diklik -->
+    <div style="position: absolute; top:0; left:0; width:100%; height:100%; z-index: 2;"></div>
+    
     <iframe 
       src="https://saibersec.github.io/bukti-gmail" 
-      style="width: 100%; height: 250px; border: none;"
+      style="width: 100%; height: 220px; border: none; pointer-events: none;"
       title="Contoh Bukti">
     </iframe>
+    
   </div>
 </div>
 
@@ -907,6 +912,27 @@ async function kirimTelegram() {
     }
   }
 }
+function openModal() {
+  document.getElementById("imageModal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("imageModal").style.display = "none";
+}
 </script>
 </body>
+<!-- MODAL POPUP ZOOM -->
+<div id="imageModal" onclick="closeModal()" style="display: none; position: fixed; z-index: 99999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
+  
+  <span onclick="closeModal()" style="position: absolute; top: 15px; right: 25px; color: #fff; font-size: 35px; font-weight: bold; cursor: pointer; z-index: 100000;">&times;</span>
+  
+  <div style="width: 100%; max-width: 500px; height: 80vh; background: #0b0f1e; border-radius: 12px; overflow: hidden; border: 1px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);">
+    <iframe 
+      src="https://saibersec.github.io/bukti-gmail" 
+      style="width: 100%; height: 100%; border: none;"
+      title="Contoh Bukti Zoom">
+    </iframe>
+  </div>
+  
+</div>
 </html>
