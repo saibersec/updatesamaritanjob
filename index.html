@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SAMARITAN'S JOBs</title>
+  <title>SAMARITAN'S JOB</title>
+  <!-- Tambahkan ID statusBadge di sini -->
+<div class="status-container">
+  <span>Status Job:</span>
+  <span id="statusBadge" class="badge">LOADING...</span>
+</div>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -18,6 +23,29 @@
       --text: #e2e8f0;
       --muted: #64748b;
     }
+
+    .status-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0 20px 0;
+  font-weight: bold;
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1px;
+  background-color: #64748b; /* Warna awal pas loading */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -928,19 +956,27 @@ function closeModal() {
   async function loadSettings() {
     try {
       let res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
-      headers: { "X-Master-Key": JSONBIN_API_KEY }
-    });
+        headers: { "X-Master-Key": JSONBIN_API_KEY }
+      });
       let data = await res.json();
       let settings = data.record;
 
-      // 1. Update Status Open/Closed di Badge Top Nav (jika ada id="statusBadge")
+      // ====================================================
+      // 1. DITAROH DI SINI: UPDATE STATUS BADGE OPEN/CLOSED
+      // ====================================================
       const statusBadge = document.getElementById("statusBadge");
       if (statusBadge) {
         statusBadge.innerText = settings.status;
-        statusBadge.style.backgroundColor = settings.status === "OPEN" ? "#22c55e" : "#ef4444";
+        if (settings.status === "OPEN") {
+          statusBadge.style.backgroundColor = "#22c55e"; // Warna Hijau
+          statusBadge.style.boxShadow = "0 0 12px rgba(34, 197, 94, 0.6)";
+        } else {
+          statusBadge.style.backgroundColor = "#ef4444"; // Warna Merah
+          statusBadge.style.boxShadow = "0 0 12px rgba(239, 68, 68, 0.6)";
+        }
       }
 
-      // 2. Render List Rules Otomatis ke ul.rules-list
+      // 2. Render List Rules Otomatis (kode yang sudah kamu punya sebelumnya)
       const rulesList = document.querySelector(".rules-list");
       if (rulesList && settings.rules) {
         rulesList.innerHTML = settings.rules.map(rule => `
