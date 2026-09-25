@@ -521,6 +521,14 @@
       from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    .mini-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  font-weight: bold;
+}
   </style>
 </head>
 
@@ -546,9 +554,9 @@
 
   <!-- Menu Navigasi Job -->
   <div class="job-nav">
-    <button class="nav-btn active" onclick="switchJob('gmail', this)">📧 JOB GMAIL</button>
-    <button class="nav-btn" onclick="switchJob('file', this)">📁 JOB FILE</button>
-    <button class="nav-btn" onclick="switchJob('chat', this)">💬 JOB CHAT</button>
+    <button class="nav-btn active" onclick="switchJob('gmail', this)">📧 JOB GMAIL <span id="badgeGmail" class="mini-badge">...</span></button>
+    <button class="nav-btn" onclick="switchJob('file', this)">📁 JOB FILE <span id="badgeFile" class="mini-badge">...</span></button>
+    <button class="nav-btn" onclick="switchJob('chat', this)">💬 JOB CHAT <span id="badgeChat" class="mini-badge">...</span></button>
   </div>
 
   <!-- ==================== JOB GMAIL ==================== -->
@@ -954,56 +962,71 @@ function closeModal() {
   const JSONBIN_API_KEY = "$2a$10$O7in8/v51RhnZVFCIuKo9ezWGLgrZ6XAcx6nTrGVa66ADZUp570wm";
 
   async function loadSettings() {
-    try {
-      let res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
-        headers: { "X-Master-Key": JSONBIN_API_KEY }
-      });
-      let data = await res.json();
-      let settings = data.record;
+  try {
+    let res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+      headers: { "X-Master-Key": JSONBIN_API_KEY }
+    });
+    let data = await res.json();
+    let settings = data.record;
 
-      // ====================================================
-      // 1. DITAROH DI SINI: UPDATE STATUS BADGE OPEN/CLOSED
-      // ====================================================
-      const statusBadge = document.getElementById("statusBadge");
-      if (statusBadge) {
-        statusBadge.innerText = settings.status;
-        if (settings.status === "OPEN") {
-          statusBadge.style.backgroundColor = "#22c55e"; // Warna Hijau
-          statusBadge.style.boxShadow = "0 0 12px rgba(34, 197, 94, 0.6)";
-        } else {
-          statusBadge.style.backgroundColor = "#ef4444"; // Warna Merah
-          statusBadge.style.boxShadow = "0 0 12px rgba(239, 68, 68, 0.6)";
-        }
-      }
+    // 1. Normalisasi data status (support format objek maupun string lama)
+    let statusObj = typeof settings.status === "object" 
+      ? settings.status 
+      : { gmail: settings.status, file: settings.status, chat: settings.status };
 
-      // 2. Render List Rules Otomatis (kode yang sudah kamu punya sebelumnya)
-      const rulesList = document.querySelector(".rules-list");
-      if (rulesList && settings.rules) {
-        rulesList.innerHTML = settings.rules.map(rule => `
-          <li><span class="rule-num">${rule.num}</span> ${rule.text}</li>
-        `).join("");
-      }
+    // 2. Update Badge Status di masing-masing tombol Navigasi Job
+    updateJobUI("gmail", statusObj.gmail, "badgeGmail");
+    updateJobUI("file", statusObj.file, "badgeFile");
+    updateJobUI("chat", statusObj.chat, "badgeChat");
 
-      // 3. Matikan Tombol Kirim jika Status CLOSED
-      const btnSubmit = document.querySelector("button[type='submit']") || document.getElementById("btnSubmit");
-      if (btnSubmit) {
-        if (settings.status === "CLOSED") {
-          btnSubmit.disabled = true;
-          btnSubmit.innerText = "JOB SEDANG TUTUP 🔒";
-          btnSubmit.style.opacity = "0.5";
-          btnSubmit.style.cursor = "not-allowed";
-        } else {
-          btnSubmit.disabled = false;
-          btnSubmit.innerText = "Kirim Setoran";
-          btnSubmit.style.opacity = "1";
-          btnSubmit.style.cursor = "pointer";
-        }
-      }
-
-    } catch (err) {
-      console.error("Gagal mengambil data dari JSONBin:", err);
+    // 3. Render List Rules Otomatis
+    const rulesList = document.querySelector(".rules-list");
+    if (rulesList && settings.rules) {
+      rulesList.innerHTML = settings.rules.map(rule => `
+        <li><span class="rule-num">${rule.num}</span> ${rule.text}</li>
+      `).join("");
     }
+
+    // 4. Atur status tombol kirim berdasarkan job yang sedang aktif
+    // (Bisa sesuaikan 'gmail' dengan variabel job aktif kamu jika ada)
+    const activeJob = window.currentActiveJob || "gmail";
+    const currentStatus = statusObj[activeJob] || "OPEN";
+    
+    const btnSubmit = document.querySelector("button[type='submit']") || document.getElementById("btnSubmit");
+    if (btnSubmit) {
+      if (currentStatus === "CLOSED") {
+        btnSubmit.disabled = true;
+        btnSubmit.innerText = "JOB SEDANG TUTUP 🔒";
+        btnSubmit.style.opacity = "0.5";
+        btnSubmit.style.cursor = "not-allowed";
+      } else {
+        btnSubmit.disabled = false;
+        btnSubmit.innerText = "Kirim Setoran";
+        btnSubmit.style.opacity = "1";
+        btnSubmit.style.cursor = "pointer";
+      }
+    }
+
+  } catch (err) {
+    console.error("Gagal mengambil data dari JSONBin:", err);
   }
+}
+
+// Helper function untuk mewarnai badge
+function updateJobUI(jobName, status, badgeId) {
+  const badge = document.getElementById(badgeId);
+  if (badge) {
+    let currentStatus = status || "OPEN";
+    badge.innerText = currentStatus;
+    badge.style.backgroundColor = currentStatus === "OPEN" ? "#22c55e" : "#ef4444";
+    badge.style.color = "#ffffff";
+    badge.style.fontSize = "10px";
+    badge.style.padding = "2px 6px";
+    badge.style.borderRadius = "4px";
+    badge.style.marginLeft = "6px";
+    badge.style.fontWeight = "bold";
+  }
+}
 
   // Jalankan fungsi saat web dibuka pengguna
   loadSettings();
