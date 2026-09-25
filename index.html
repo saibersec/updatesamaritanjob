@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SAMARITAN'S JOB</title>
+  <title>SAMARITAN'S JOBs</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -928,8 +928,8 @@ function closeModal() {
   async function loadSettings() {
     try {
       let res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
-        headers: { "X-Master-Key": $2a$10$O7in8/v51RhnZVFCIuKo9ezWGLgrZ6XAcx6nTrGVa66ADZUp570wm }
-      });
+      headers: { "X-Master-Key": JSONBIN_API_KEY }
+    });
       let data = await res.json();
       let settings = data.record;
 
