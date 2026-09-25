@@ -920,6 +920,58 @@ function closeModal() {
   document.getElementById("imageModal").style.display = "none";
 }
 </script>
+<script>
+  // === KODE PENYAMBUNG DENGAN JSONBIN ===
+  const JSONBIN_BIN_ID = "6ab6ec1cac6210605af5c413";
+  const JSONBIN_API_KEY = "PASTE_MASTER_KEY_ASLI_DI_SINI";
+
+  async function loadSettings() {
+    try {
+      let res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+        headers: { "X-Master-Key": $2a$10$O7in8/v51RhnZVFCIuKo9ezWGLgrZ6XAcx6nTrGVa66ADZUp570wm }
+      });
+      let data = await res.json();
+      let settings = data.record;
+
+      // 1. Update Status Open/Closed di Badge Top Nav (jika ada id="statusBadge")
+      const statusBadge = document.getElementById("statusBadge");
+      if (statusBadge) {
+        statusBadge.innerText = settings.status;
+        statusBadge.style.backgroundColor = settings.status === "OPEN" ? "#22c55e" : "#ef4444";
+      }
+
+      // 2. Render List Rules Otomatis ke ul.rules-list
+      const rulesList = document.querySelector(".rules-list");
+      if (rulesList && settings.rules) {
+        rulesList.innerHTML = settings.rules.map(rule => `
+          <li><span class="rule-num">${rule.num}</span> ${rule.text}</li>
+        `).join("");
+      }
+
+      // 3. Matikan Tombol Kirim jika Status CLOSED
+      const btnSubmit = document.querySelector("button[type='submit']") || document.getElementById("btnSubmit");
+      if (btnSubmit) {
+        if (settings.status === "CLOSED") {
+          btnSubmit.disabled = true;
+          btnSubmit.innerText = "JOB SEDANG TUTUP 🔒";
+          btnSubmit.style.opacity = "0.5";
+          btnSubmit.style.cursor = "not-allowed";
+        } else {
+          btnSubmit.disabled = false;
+          btnSubmit.innerText = "Kirim Setoran";
+          btnSubmit.style.opacity = "1";
+          btnSubmit.style.cursor = "pointer";
+        }
+      }
+
+    } catch (err) {
+      console.error("Gagal mengambil data dari JSONBin:", err);
+    }
+  }
+
+  // Jalankan fungsi saat web dibuka pengguna
+  loadSettings();
+</script>
 </body>
 <!-- MODAL POPUP ZOOM -->
 <div id="imageModal" onclick="closeModal()" style="display: none; position: fixed; z-index: 99999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
