@@ -161,8 +161,13 @@
     }
 
     /* Section Control */
-    .job-section { display: none; }
-    .job-section.active { display: block; }
+    .job-section {
+      display: none;
+    }
+
+    .job-section.active {
+      display: block;
+    }
 
     /* Card */
     .card {
@@ -244,15 +249,15 @@
       text-transform: uppercase;
     }
 
-    /* Steps List & Rules List */
-    .steps-list, .rules-list {
+    /* Steps List */
+    .steps-list {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
-    .steps-list li, .rules-list li {
+    .steps-list li {
       display: flex;
       gap: 12px;
       font-size: 13px;
@@ -260,7 +265,7 @@
       line-height: 1.5;
     }
 
-    .step-num, .rule-num {
+    .step-num {
       width: 24px; height: 24px;
       border-radius: 8px;
       background: rgba(56,189,248,0.1);
@@ -268,6 +273,34 @@
       display: flex; align-items: center; justify-content: center;
       font-family: 'Space Mono', monospace;
       font-size: 11px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* Rules */
+    .rules-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .rules-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    .rule-num {
+      width: 22px; height: 22px;
+      border-radius: 6px;
+      background: rgba(56,189,248,0.1);
+      border: 1px solid rgba(56,189,248,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
       color: var(--accent);
       flex-shrink: 0;
     }
@@ -309,89 +342,6 @@
     input { padding: 12px 14px 12px 42px; }
     textarea { padding: 14px; resize: none; line-height: 1.7; }
     input:focus, textarea:focus { border-color: rgba(56,189,248,0.4); }
-
-    /* Sample Image Box */
-    .sample-box {
-      background: var(--surface2);
-      border: 1px dashed var(--border);
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 12px;
-    }
-    .sample-title {
-      font-size: 11px;
-      color: var(--accent);
-      font-weight: 700;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .sample-img-container {
-      width: 100%;
-      max-height: 180px;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-    .sample-img-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Upload Box & Previews */
-    .file-upload-box {
-      border: 2px dashed rgba(56,189,248,0.3);
-      background: rgba(56,189,248,0.03);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .file-upload-box:hover {
-      background: rgba(56,189,248,0.08);
-      border-color: var(--accent);
-    }
-    .file-upload-box span {
-      display: block;
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 6px;
-    }
-
-    .preview-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 12px;
-    }
-    .preview-item {
-      position: relative;
-      aspect-ratio: 1;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-    .preview-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .btn-remove-img {
-      position: absolute;
-      top: 4px; right: 4px;
-      background: rgba(248,113,113,0.85);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 22px; height: 22px;
-      font-size: 12px;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-    }
 
     /* Stats bar */
     .stats-bar {
@@ -511,7 +461,7 @@
 
   <div class="header">
     <div class="logo-wrap">
-      <img src="https://raw.githubusercontent.com/saibersec/logo/main/WhatsApp%20Image%202026-04-04%20at%2016.15.01.jpeg" alt="Logo">
+      <img src="https://raw.githubusercontent.com/saibersec/logo/main/WhatsApp%20Image%202026-04-04%20at%2016.15.01.jpeg">
     </div>
     <div class="company-name">SAMARITAN'S JOB</div>
   </div>
@@ -568,26 +518,6 @@
         <textarea id="gmailList" rows="6" placeholder="contoh@gmail.com&#10;contoh2@gmail.com"></textarea>
       </div>
 
-      <!-- Contoh Bukti Screenshot -->
-      <div class="sample-box">
-        <div class="sample-title">📸 Contoh Foto Bukti Yang Benar:</div>
-        <div class="sample-img-container">
-          <img src="https://raw.githubusercontent.com/saibersec/logo/main/contoh-bukti-gmail.jpeg" alt="Contoh Screenshot Gmail" onerror="this.src='https://placehold.co/600x300/0b0f1e/38bdf8?text=Screenshot+Tampilan+Depan+Gmail'">
-        </div>
-      </div>
-
-      <!-- Upload Bukti Foto Multiple -->
-      <div class="field">
-        <label>Upload Bukti Foto Screenshot (Bisa Banyak)</label>
-        <div class="file-upload-box" onclick="document.getElementById('buktiPhotos').click()">
-          <div style="font-size: 24px;">📸</div>
-          <div style="font-size: 13px; font-weight: 700; color: var(--text); margin-top: 4px;">Pilih / Ambil Foto Bukti</div>
-          <span>Format: JPG, PNG, WEBP (Bisa Upload >1 Foto)</span>
-        </div>
-        <input type="file" id="buktiPhotos" accept="image/*" multiple style="display: none;" onchange="handleFileSelect(event)">
-        <div class="preview-grid" id="previewGrid"></div>
-      </div>
-
       <div class="stats-bar">
         <div class="stat-box">
           <div class="stat-label">Jumlah Gmail</div>
@@ -601,12 +531,15 @@
 
       <div id="warning"></div>
 
-      <button class="btn-send" id="btnSubmit" onclick="kirimTelegram()">Kirim Setoran</button>
+      <button class="btn-send" onclick="kirimTelegram()">Kirim Setoran</button>
     </div>
   </div>
 
   <!-- ==================== JOB FILE ==================== -->
   <div id="job-file" class="job-section">
+    
+
+
     <div class="card">
       <div class="card-header">
         <div class="card-icon">📁</div>
@@ -648,6 +581,8 @@
 
   <!-- ==================== JOB CHAT ==================== -->
   <div id="job-chat" class="job-section">
+
+    <!-- Rate Harga Job Chat -->
     <div class="rate-box">
       <div class="rate-info">
         <span class="rate-label">Komisi</span>
@@ -749,48 +684,6 @@ function formatRupiah(angka) {
   return "Rp" + angka.toLocaleString("id-ID");
 }
 
-// Storage File Upload Foto Bukti
-let selectedFiles = [];
-
-function handleFileSelect(event) {
-  const files = Array.from(event.target.files);
-  files.forEach(file => {
-    if (file.type.startsWith('image/')) {
-      selectedFiles.push(file);
-    }
-  });
-  renderPreviews();
-  event.target.value = ''; // Reset input agar bisa pilih ulang file yang sama jika perlu
-}
-
-function removeFile(index) {
-  selectedFiles.splice(index, 1);
-  renderPreviews();
-}
-
-function renderPreviews() {
-  const grid = document.getElementById('previewGrid');
-  grid.innerHTML = '';
-  
-  selectedFiles.forEach((file, index) => {
-    const item = document.createElement('div');
-    item.className = 'preview-item';
-    
-    const img = document.createElement('img');
-    img.src = URL.createObjectURL(file);
-    
-    const btn = document.createElement('button');
-    btn.className = 'btn-remove-img';
-    btn.innerHTML = '✕';
-    btn.onclick = () => removeFile(index);
-    
-    item.appendChild(img);
-    item.appendChild(btn);
-    grid.appendChild(item);
-  });
-}
-
-// Pengiriman ke Server via FormData
 function kirimTelegram() {
   let dana = document.getElementById("dana").value.trim();
   let wa = document.getElementById("whatsapp").value.trim();
@@ -799,11 +692,6 @@ function kirimTelegram() {
 
   if (unique.length < 1) {
     alert("Minimal 1 Gmail!");
-    return;
-  }
-
-  if (selectedFiles.length < 1) {
-    alert("Wajib mengunggah minimal 1 foto bukti screenshot!");
     return;
   }
 
@@ -819,45 +707,27 @@ function kirimTelegram() {
     `📱 WA    : ${wa}\n` +
     `📊 Jumlah: ${jumlah} Gmail\n` +
     `💰 Total : ${formatRupiah(jumlah * harga)}\n` +
-    `📸 Foto  : ${selectedFiles.length} Berkas Bukti\n` +
     `━━━━━━━━━━━━━━━━━━━\n` +
     `📋 LIST GMAIL:\n${unique.join("\n")}`;
 
-  // Menggunakan FormData untuk mengirim Teks + File Foto sekaligus
-  let formData = new FormData();
-  formData.append("pesan", pesan);
-  
-  selectedFiles.forEach((file, index) => {
-    formData.append("photos", file);
-  });
-
-  const btnSubmit = document.getElementById("btnSubmit");
-  btnSubmit.disabled = true;
-  btnSubmit.innerText = "Mengirim...";
-
   fetch("/api/send", {
     method: "POST",
-    body: formData
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ pesan })
   })
     .then(res => res.json())
     .then(data => {
-      btnSubmit.disabled = false;
-      btnSubmit.innerText = "Kirim Setoran";
       if (data.success) {
-        alert("✅ Berhasil dikirim beserta bukti foto!");
+        alert("✅ Berhasil dikirim!");
         textarea.value = "";
         document.getElementById("dana").value = "";
         document.getElementById("whatsapp").value = "";
-        selectedFiles = [];
-        renderPreviews();
         hitung();
       } else {
         alert("✅ Berhasil dikirim!");
       }
     })
     .catch(() => {
-      btnSubmit.disabled = false;
-      btnSubmit.innerText = "Kirim Setoran";
       alert("❌ Gagal kirim! Cek koneksi internet.");
     });
 }
